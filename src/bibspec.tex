@@ -1,0 +1,32 @@
+%%% Citation style & appearance
+
+% Customizes the citation label to include up to two authors before et al.
+\DeclareNameAlias{sortname}{family-given}
+\DeclareNameAlias{default}{family-given}
+
+% Redefines the et al. string to appear after two authors
+\DefineBibliographyStrings{english}{%
+  andothers = {\addspace et\ al\adddot}
+}
+
+% Ampersand as the final separator for citations
+\renewcommand*{\finalnamedelim}{\addspace\&\space}
+
+%%% Bibliography appearance
+
+% Suppress arXiv and related fields
+\renewbibmacro{eprint}{}
+\renewbibmacro{url+urldate}{}
+
+% This does the same thing?
+% \AtEveryBibitem{%
+%   \ifentrytype{article}
+%     {\clearfield{eprint}}
+%     {}%
+% }
+
+% Removes the "In:" from articles
+% \renewbibmacro{in:}{}
+
+% Suppress paper titles
+% \renewbibmacro{title}{}
