@@ -13,6 +13,6 @@
 *.run.xml
 *.synctex.gz
 *.toc
-*.pdf
+/*.pdf
 *.lot
 *.lof
