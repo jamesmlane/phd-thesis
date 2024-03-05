@@ -11,13 +11,12 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 
-% Bibliography and references
-\usepackage[backend=biber,
-            style=authoryear]
-            {biblatex}
-% \usepackage{natbib}
+% Colors
+\usepackage[table,
+            x11names]
+            {xcolor}
 
-% Blue links
+% Links
 \usepackage[colorlinks,
             urlcolor=blue,
             linkcolor=blue,
@@ -32,4 +31,18 @@
 % misc.
 \usepackage{url}
 \usepackage{seqsplit}
-% \usepackage{}
+
+% Bibliography and references
+\usepackage[backend=biber,
+            style=authoryear,
+            maxcitenames=2,
+            mincitenames=1,
+            uniquename=false,
+            uniquelist=false,
+            giveninits=true,
+            dashed=false,
+            hyperref=true,]
+            {biblatex}
+
+% Formatting for citations and the bibliography
+\input{src/bibspec.tex}
