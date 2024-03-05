@@ -50,7 +50,7 @@
 %% [https://github.com/jessexknight/ut-thesis]
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{ut-thesis}
+\ProvidesClass{src/ut-thesis}
 [2023/02/08 v3.1.7 University of Toronto thesis class]
 \newif\ifmargins@equal
 \newlength{\margin@base}
