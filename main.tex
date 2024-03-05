@@ -1,26 +1,14 @@
-\documentclass{ut-thesis}
+\documentclass{src/ut-thesis}
 
 % Packages
-\usepackage[colorlinks,
-            urlcolor=blue,
-            linkcolor=blue,
-            citecolor=blue]
-            {hyperref} % for links
-\usepackage[backend=biber,
-            style=authoryear]
-            {biblatex} % for references
-\usepackage{graphicx} % for embedding graphics
-\usepackage{booktabs} % for pretty tables
-\usepackage{amsmath}
-\usepackage[T1]{fontenc}
-% \usepackage{natbib}
+\input{src/packages}
 
 % Commands
 \input{src/macros}
 
 % Personal information
 \author{James Martin Mackay Lane}
-\title{On the use of distribution functions for the study of the Milky Way stellar halo in the \textit{Gaia} era}
+\title{On the use of distribution functions for the study of the Milky Way stellar halo in the Gaia era}
 \degree{Doctor of Philosophy}
 \gradyear{2024}
 \department{Astronomy \& Astrophysics}
@@ -36,27 +24,13 @@
 \maketitle
 
 % Abstract
-\begin{abstract}
-    \input{abstract/abstract}
-\end{abstract}
+\input{frontmatter/abstract}
 
 % Dedication
-\begin{dedication}
-    For my grandfather, Bruce Mackay
-\end{dedication}
+\input{frontmatter/dedication}
 
 % Acknowledgements
-\begin{acknowledgements}
-    \begin{itemize}
-        \item Haley
-        \item Mom and dad
-        \item Carmen and Warren
-        \item Academics: Jo, Ted, Bob, Suresh, Helen, Doug, Steve, Mike, Kim, Julio
-        \item Friends: Mitch, Adam, Theron, Nick, Mike...
-        \item Pets: Java, Phoebe, Zoe
-        \item Inspirations: NDGT, Vsauce, Sixty symbols, 
-    \end{itemize}
-\end{acknowledgements}
+\input{frontmatter/acknowledgements}
 
 % Lists
 \tableofcontents
