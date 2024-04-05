@@ -1,0 +1,204 @@
+\section{The tools of galactic archaeology}
+
+In this section is introduced the tools required to engage in the study of galactic archaeology and the formation of galaxies like the Milky Way. First are key topics in galactic dynamics, which include the description of orbits as well as the various integrals of motion and kinematic quantities which are useful for characterizing them. Then distribution functions are covered, and specifically those used in this thesis. Next is an overview of some aspects of galactic chemical evolution and stellar abundances. Some statistical techniques are introduced, again specifically those used in this thesis. Finally, N-body techniques and major simulation suites are introduced, and some key results that rely on them are covered. 
+
+\subsection{The mathematical framework for galactic dynamics}
+
+To this point we have discussed numerous aspects of the history of the Milky Way Galaxy and its place in the cosmos. At this point we make must now delve into the mathematical framework which forms the basis for our understanding of the Galaxy. The standard reference for these materials is the textbook \textcite{binney08}, which will guide me here as well. I will introduce integrals of motion and actions as tools to efficiently describe orbits. I then move on to distribution functions, which are the primary model for the distribution of stellar kinematics in the Milky Way. These tools will be used throughout the thesis to describe the Milky Way, and to interpret the \textit{Gaia} and other data.
+
+\subsubsection{Orbits and integrals of motion}
+
+Among the many properties of a star, and of chief importance, is the nature of its orbit. The orbit of a star determines which part of the galaxy it exists in, and informs its past and present properties. In many ways galaxies can be thought of as being ``built'' out of orbits, a perspective which underpins many dynamical modelling approaches. Families of orbits intertwine to create the great stellar populations of the galaxy: the disk, bulge, and halo. While also defined by their unique chemistry and stellar ages, these populations are often most readily separated on the basis of the orbits of their constituent stars. It is with this in mind that I outline a framework for describing and labelling stellar orbits which informs their overall kinematics in much the same way their chemical composition may be informed by measured abundances. These descriptions will also end up providing the ingredients to construct distribution functions, which will be the subject of the next section.
+
+The orbit of a star is dictated by the gravitational potential of the galaxy along with the position and velocity of the star at any given time. As these quantities are liable to vary throughout the orbit of a star, it is useful to instead turn to integrals of motion to describe orbits. These are quantities which are conserved along the orbit of a star, and so can be used as a unique set of labels for the orbit under consideration. The number of integrals of motion possessed by an orbit is determined by the nature of the potential. In the case of a spherically symmetric potential, four integrals of motion exist. First is the energy, given by 
+
+\begin{equation}
+    \label{ch1:eq:energy}
+    E = \frac{1}{2}v^2 + \Phi(\mathbf{\mathrm{r}}),
+\end{equation}
+
+\noindent where $v$ is the magnitude of the velocity, and $\Phi(r)$ is the gravitational potential, only a function of the spherical radius $r$. The other three integrals of motion are the components of the angular momentum, given in vector form by
+
+\begin{equation}
+    \label{ch1:eq:angular-momentum}
+    \mathbf{L} = \mathbf{r} \times \mathbf{v}\,,
+\end{equation}
+
+\noindent where $\mathbf{r}$ is the position vector and $\mathbf{v}$ is the velocity vector. Alternatively, the remaining three integrals of motion are often cast as the z-component of the angular momentum, the component perpendicular to this, and the magnitude of the angular momentum. In cylindrical coordinates the z-component of the angular momentum is given by
+
+\begin{equation}
+    \label{ch1:eq:z-angular-momentum}
+    L_\mathrm{z} = R \, v_{T}\,,
+\end{equation}
+
+\noindent where $R$ is the cylindrical radius and $v_{T}$ the tangential velocity. The perpendicular component of the angular momentum is given by
+
+\begin{equation}
+    \label{ch1:eq:perpendicular-angular-momentum}
+    L_{\perp} = \sqrt{ L^{2} - L_{\mathrm{z}}^{2} }\,,
+\end{equation}
+
+\noindent where $L$ is the total magnitude of the angular momentum. Regardless of the form, these four integrals of motion are sufficient to describe all of the unique orbits in a spherically symmetric potential.
+
+But most galaxies, including the Milky Way and other spiral galaxies, do not have spherically symmetric potentials, and are instead better considered to be flattened or axisymmetric potentials. Such potentials permit three integrals of motion: the energy, the z-component of the angular momentum (assuming the potential is symmetric about the z-axis), and a quantity typically known as the ``third integral''. This third integral reflects the conservation of a unique combination of vertical and radial motions beyond the motions described simply by the conservation of energy and z-axis angular momentum (in other words two orbits may share $E$ and $L_{z}$ yet have different phase space trajectories). Among the many consequences of the conservation of third integral, a notable example can be seen when examining the trace of an orbit in the cylindrical $R-z$ plane, where the orbit will be confined to a characteristic area which is symmetric about the $z=0$ line \parencite[see figure 3.4 in][]{binney08}. The fact that the orbit is confined to this area, which is actually a toroidal volume in 3D space, is a reflection of the conservation of the third integral. One problem with the use of the third integral is that closed form expressions for it are limited to a few special potentials, such as the Henon potential which possesses a number of remarkable properties \parencite{henon59a,binney14e}, and so it is often not computed directly.
+
+As potentials become more complicated the number of integrals of motion either decreases or they become more challenging to compute. Many such potentials are nontheless important to consider in the context of the Milky Way. Good examples are rotating potentials, such as those representing the Galactic bar, or triaxial potentials which are often used to model the dark matter halo. In some of these instances, such as for the dark halo potential, it is often sufficient to consider the potential to be of a simpler form, such as axisymmetric or spherical. For the Galactic bar advanced techniques are available that allow computation of conserved quantities in rotating frames of reference. More complicated time-varying behaviour or potentials that deviate significantly from axisymmetry generally require substantial simplifying assumptions to work with. A good example of such a potential that must be considered is the infalling Large Magellanic Cloud, which is currently merging with the Milky Way, and has been shown to have a significant impact on the dynamics of mid- and outer-halo stars and stellar structures \parencite[e.g.][]{erkal19}. In this instance perturbative techniques can be employed to handle the dynamical impact caused by the infalling satellite, but again I will defer discussion of these techniques. To summarize, as potentials deviate from time-indepent axisymmetry the accessibility of integrals of motion decreases and nearly always it is necessary to make simplifying assumptions to proceed. Throughout this thesis I generally will simplify the potential in order to access integrals of motion for analysis and to use as ingredients in distribution functions, and within each subsequent chapter will be relevant discussions of the implications of such choices where pertinant.
+
+\subsubsubsection{Action-angle coordinates}
+
+Within the framework of Hamiltonian mechanics, the equations of motion for an orbit are cast in terms of a canonical set of momenta and the corresponding conjugate coordinates. These canonical momenta are known as actions, $J_{i}$, and their behaviour is governed by Hamiltons equations, which also involve the Hamiltonian, $H$, and the aforementioned conjugate coordinates $\theta_{i}$. Hamiltons equations take the form
+
+\begin{equation}
+    \label{ch1:eq:hamiltons-equations}
+\begin{split}
+    \dot{J_{i}}= & -\frac{\partial H}{\theta{i}} \\
+    \dot{\theta_{i}} = & \frac{\partial H}{J_{i}}\,.
+\end{split}
+\end{equation}
+
+Assuming that the actions are integrals of motion, they are necessarily constant in time, and so the first of these equations is trivially satisfied, and the second yields simple linear time evolution for each of the angles $\theta_{i}$ 
+
+\begin{equation}
+    \label{ch1:eq:angle-evolution}
+    \theta_{i}(t) = \theta_{i}(0) + \Omega_{i}t\,,
+\end{equation}
+
+\noindent involving a quantity $\Omega_{i} = \dot{\theta_{i}}$. Grounding ourselves in the reality that orbits are periodic we interpret these equations as those governing periodic motion. Therefore $\theta_{i}$ are akin to the phase of an orbit along its periodic trajectory, which may increase linearly without bound and yet only be relevant when considered modulo $2\pi$. Building on this we interpret the $\Omega_{i}$ as frequencies of this periodic motion. This equivalence is what gives rise to the standard names for these coordinates: action-angle variables, and their associated frequencies. It is standard to consider the three actions in cylindrical coordinates: $\{J_{R}, J_{\phi}, J_{z}\}$, and their associated angles $\{\theta_{R}, \theta_{\phi}, \theta_{z}\}$. It turns out that the actions are best defined using Poincar\'{e} invariants, which may be cast as line integrals along an orbit trajectory $\gamma$ 
+
+\begin{equation}
+    \label{ch1:eq:actions}
+    J_{i} = \frac{1}{2\pi}\oint_{\gamma} p_{i}\, \mathrm{d}q_{i}\,,
+\end{equation}
+
+\noindent where $p_{i}$ and $q_{i}$ are components of the position and momentum in cylindrical coordinates. This form of the actions is useful for developing deeper intuition about their nature. As orbits explore a greater range of the configuration space $q_{i}$ (i.e. they orbit farther above and below the Galactic plane, or over a larger radial extent) at higher velocities $p_{i}$ the actions correspondingly increase. While equation~\eqref{ch1:eq:actions} is simple, the actual computation of actions using this equation or other methods can be challenging.
+
+The actions only have closed form solutions for a small number of special potentials \parencite[again the potential of ][ for example]{henon59a} which in practice are only used as a part of toy models. Instead, the actions are nearly always computed using numerical techniques. In all cases the azimuthal action $J_{\phi} = L_\mathrm{z}$ is trivial, and only $J_{R}$ and $J_{z}$ require computation. Here I will outline a few of the most commonly used methods. The first is the spherical approximation, where we can directly draw on equation~\ref{ch1:eq:actions} to determine the actions. $J_{z} = L - L_{z}$ simply becomes the angular momentum net of the azimuthal component, and $J_{R}$ takes a slightly more complicated form involving an integral over the potential between the pericenter and apocenter. This spherical approximation is obviously suitable for spherical potentials, but also has applications as a starting point in axisymmetric potentials as well. Another approach is to employ the epicycle approximation and assume that the vertical motion above and below the disk may be decoupled from the radial motion towards and away from the Galactic center. Given this both a vertical and radial potential may be constructed and equation~\ref{ch1:eq:actions} used to compute the respective actions. This approach is reasonable for orbits which do not stray too far from the disk and which are not particularly eccentric, and is therefore well-suited for thin-disk orbits in the Milky Way.
+
+The final approach - which is most favoured in modern galactic dynamics - is to model the underlying potential as a St\"{a}ckel potential, which implies that it is separable in confocal ellipsoidal coordinates $(u,v)$. This unusual choice of coordinate system is driven by observations of the cross-sections of orbits in the $R-z$ plane, which often appear to have boundaries approximately defined by lines of constant $u$ and $v$ \parencite[see figure 3.27 in ][]{binney08}. Therefore converting from cylindrical to prolate confocal coordinates gives a potential in which the $u$ and $v$ motions separate, and then an analog of equation~\eqref{ch1:eq:actions} may be used to compute the actions. This approach is particularly useful in the Milky Way as, in theory, it can reliably produce actions for a wide range of orbits, including those which venture far from the disk plane, and those on eccentric orbits. This is the approach I primarily use in this thesis and the specifics will be discussed in greater detail in the relevant chapters.
+
+Actions and other integrals of motion introduced here represent orbits in the most fundamental manner, and are the core pieces of data used in Galactic astrophysics to study and model the various stellar populations of the Milky Way. Next, I will introduce distribution functions, the fundamental model for the distribution of phase space kinematics in realistic stellar populations, and which rely a great deal on these actions and integrals of motion.
+
+\subsubsubsection{Distribution functions}
+
+At a base level the DF is an expression of density in 6-dimensional phase space. When appropriately normalized, the integral of a DF $f$ over all space and all velocities is a constant related to the mass of the system
+
+\begin{equation}
+    \label{ch1:eq:df-normalization}
+    M = \iint \mathrm{d}^3\mathbf{\mathrm{x}}\, \mathrm{d}^3\mathbf{\mathrm{v}}\, f( \mathbf{\mathrm{x}}, \mathbf{\mathrm{v}}) \,.
+\end{equation}
+
+\noindent Since DFs can describe both the positions and motions of stars in a probabilistic sense they are the natural tool for modelling discrete populations of stars in the Milky Way. The challenge is to construct DF models which are both physically motivated and which can be used to fit, study, and interpret the data.
+
+As a starting point we consider a spherical stellar system. As is standard when studying DFs we work in terms of relative energies. The relative potential energy $\Psi$ is defined as 
+
+\begin{equation}
+    \label{ch1:eq:relative-potential-energy}
+    \Psi = -\Phi + \Phi(\infty)\,,
+\end{equation}
+
+\noindent which is simply the negative of the standard gravitational potential offset such that the potential is zero at infinity. The relative energy $\mathcal{E}$ is then given by
+
+\begin{equation}
+    \label{ch1:eq:relative-energy}
+    \mathcal{E} = \Psi - \frac{v^{2}}{2}\,,
+\end{equation}
+
+\noindent where $v$ is the magnitude of the velocity. Now, beginning with the simplest \textit{ansatz} that $f$ is a function only of $\mathcal{E}$, we can write the density of the system as an integral of the DF $f(\mathcal{E})$ over all velocities. If we work in spherical coordinates then the integral can be cast as 
+
+\begin{equation}
+    \label{ch1:eq:spherical-df-density}
+    \nu(r) = 4\pi \int \mathrm{d} v \, v^{2} \, f(\mathcal{E}) = 4\pi \int \mathrm{d} \, \mathcal{E} \, f(\mathcal{E}) \, \sqrt{ 2(\Psi - \mathcal{E}) }\,.
+\end{equation}
+
+\noindent Then if we consider that we may cast the density as a function of $\Psi$ instead of $r$, recognize that the appropriate integration range of $\mathcal{E}$ is 0 to $\Psi$ (equivalent to integrating velocity from 0 to the escape velocity), and then differentiate with respect to $\Psi$ we arrive at the following expression
+
+\begin{equation}
+    \label{ch1:eq:spherical-df-density-derivative}
+    \frac{1}{\sqrt{8}\pi} \frac{\mathrm{d} \nu}{\mathrm{d} \Psi} =  \int \mathrm{d} \mathcal{E} \, \frac{ f(\mathcal{E}) }{ \sqrt{\Psi - \mathcal{E}} }\,.
+\end{equation}
+
+\noindent This is an Abel integral equation which can be solved to yield a solution for the DF of the form
+
+\begin{equation}
+    \label{ch1:eq:eddington-inversion-df}
+    f(\mathcal{E}) = \frac{1}{\sqrt{8}\pi^2} \left[ \int \frac{\mathrm{d} \Psi}{\sqrt{\Psi - \mathcal{E}}} \frac{\mathrm{d}^{2} \Psi}{\mathrm{d}\nu^{2}} \frac{1}{\sqrt{\mathcal{E}}} \left( \frac{\mathrm{d} \nu}{\mathrm{d} \Psi} \right)_{\Psi = 0} \right] \,.
+\end{equation}
+
+This inversion was first discovered by \textcite{eddington16}, and the DFs which it describes - those based solely on energy - are known as ergodic DFs. It is noteworthy to point out that the density $\nu$ and the potential $\Psi$ could be potential-density pairs, or they could be independent. $\nu$ expresses the density of the tracer, the constituent stars of the stellar population under consideration for example. $\Psi$ expresses the gravitational potential governing the dynamics of the tracer population, which could be sourced from $\nu$ for a self-gravitating system like a globular cluster or could be independent such the way in which the dark halo largely governs the dynamics of the stellar halo. The Eddington DF has a closed-form solution for a number of self-gravitating systems, including the widely used \textcite{hernquist90} potential among others. In general however, and especially when $\nu$ and $\Psi$ are not a potential-density pair, the Eddington inversion must be computed using numerical methods.
+
+A DF, or a stellar population in general, may be described by its orbital anisotropy, $\beta$. The anisotropy of a stellar population is a measure of the degree to which the constituent orbits are preferentially radial, tangential, or neither. Its form, while not intuitive, has its roots in the spherical Jeans equation and is given by 
+
+\begin{equation}
+    \label{ch1:eq:anisotropy}
+    \beta = 1 - \frac{\sigma_{\theta}^{2} + \sigma_{\phi}^{2}}{2\sigma_{r}^{2}}\,,
+\end{equation}
+
+\noindent where $\sigma_{[\theta, \phi, r]}$ are the velocity dispersions in spherical coordinates. The anisotropy has the domain $(-\infty,1]$ such that as $\beta$ approaches negative infinity the orbits become completely tangential, and as $\beta$ approaches 1 the orbits become completely radial. When $\beta=0$ the system is ergodic, and the orbits are isotropic or unbiased. Anisotropy is useful in the context of DFs since two stellar populations may share the same density profile and underlying potential, yet have different anisotropies reflecting different underlying kinematics. 
+
+To construct DFs with variable anisotropy we use angular momentum, another integral of motion, as a second variable. Angular momentum is a natural choice for the purpose of varying the anisotropy since an orbit with a given energy has a maximum angular momentum when it is on a circular orbit, and its angular momentum decreases as it becomes more radial. The DF for a spherical system with constant anisotropy as a function of radius is
+
+\begin{equation}
+    \label{ch1:eq:constant-anisotropy-df}
+    f(\mathcal{E}, L) = f_{1}(\mathcal{E}) L^{-2\beta}\,,
+\end{equation}
+
+\noindent where $f_{1}(\mathcal{E})$ is a function depending only on energy. The approach to solve for $f_{1}$ is similar in spirit to the approach used to create the Eddington inversion, albeit more complicated since the addition of angular momentum complicates the handling of the integral over velocity space. The end result is an integral equation of the form
+
+\begin{equation}
+    % \label{eq:AbelIntegral}
+    \frac{ 2^{\beta-1/2} }{ 2\pi I_{\beta} } r^{2\beta}\nu = \int_{0}^{\Psi} \mathrm{d}\mathcal{E} \frac{ f_{1}(\mathcal{E}) }{ (\Psi-\mathcal{E})^{\beta-1/2} }\,.
+\end{equation}
+    
+\noindent where $I_{\beta}$ is a constant given by
+
+\begin{equation}
+    I_{\beta} = \sqrt{\pi}\frac{\Gamma(1-\beta)}{\Gamma(3/2-\beta)}\,,
+\end{equation}
+
+\noindent with $\Gamma$ being the usual Gamma function. This is an Abel integral equation for $1/2 < \beta < 3/2$, giving a solution similar to that found in equation~\eqref{ch1:eq:eddington-inversion-df}. For $\beta < 1/2$ differentiating the integral with respect to $\Psi$ one or more times yields an Abel equation which may be similarly inverted. For certain potential-density pairs such as that pf \textcite{hernquist90}, and half-integer values of $\beta$, this equation has a closed-form solution. Otherwise the DF must be computed numerically, which is often computationally expensive. This presents a challenge when using these types of DFs, since any approach to fitting typically requires computing a likelihood or other objective function multiple times, and the DF would almost definitionally be included in such a function. Much of the work done in this thesis will involve the use of DFs with constant anisotropy and navigating these issues of computability will be a chief driver for certain choices made in the analysis, which will be expounded in subsequent chapters.
+
+An anisotropic DF related to the Eddington DF was introduced independently by \textcite{osipkov79} and \textcite{merritt85}. These authors sought a DF with an anisotropy which increases with radius, which is aligned with galaxy formation theory. The Osipkov-Merritt DF employs a single pseudo-energy defined as 
+
+\begin{equation}
+    \label{ch1:eq:osipkov-merritt-pseudo-energy}
+    \mathcal{Q} = \mathcal{E} - \frac{L^{2}}{2r_{a}^{2}}\,.
+\end{equation}
+
+\noindent where $r_{a}$ is a scale radius. It is possible to cast the integral over all velocities, which has been the starting point for the two previous DFs discussed, in terms of $\mathcal{Q}$, which actually greatly simplifies the resulting integral equation. The result is actually identical to the Eddington inversion, but with $\mathcal{Q}$ substituting for $\mathcal{E}$ and the density multiplied by a factor of $(1 + r^{2}/r_{a}^{2})$, and is therefore approximately equivalent to the Eddington DF in terms of computation strategy. The anisotropy of the Osipkov-Merritt DF varies between $\beta=0$ and $\beta=1$ according to the formula
+
+\begin{equation}
+    \label{ch1:eq:osipkov-merritt-anisotropy}
+    \beta = \frac{r^{2}}{r^{2} + r_{a}^{2}}\,,
+\end{equation}
+
+and so clearly for $r=r_{a}$ the anisotropy is equal to $1/2$. The Osipkov-Merritt DF is a useful companion to the Eddington and constant anisotropy DFs, and one chapter of this thesis will be dedicated to comparing these DFs in a practical manner.
+
+A final DF which has grown in popularity over the last decade is based on actions as opposed to energy and angular momentum. First formulated by \textcite{binney14d} and built upon by \textcite{posti15}, DFs of this type have no specifically defined form but a general structure would be a double power law function of the actions $\mathbf{J} = \{ J_{R}, J_{z}, J_{\phi} \}$ expressed as
+
+\begin{equation}
+    \label{ch1:eq:action-df}
+    f(\mathbf{J}) = \frac{M}{(2\pi J_{0})^{3}} 
+    \bigg[ 1 + \bigg( \frac{J_{0}}{h(\mathbf{J})} \bigg)^{\eta} \bigg]^{\Gamma/\eta} 
+    \bigg[ 1 + \bigg( \frac{g(\mathbf{J})}{J_{0}} \bigg)^{\eta} \bigg]^{-B/\eta}
+    \bigg[ 1 + \chi \tanh \frac{J_{\phi}}{J_{\phi,0}} \bigg]
+    \,.
+\end{equation}
+
+\noindent Here, the first term normalizes the DF such that the mass is $M$. The second and third terms control the behaviour of the actions in the small and large regimes respectively (note that smaller and larger actions will roughly correspond to smaller and larger radii) with power law slopes $\Gamma$ and $B$, and a parameter controlling the steepness of the transition $\eta$. The functions $h(\mathbf{J})$ and $g(\mathbf{J})$ control the anisotropy and flattening of the model in the small and large action regimes respectively, and are given by 
+
+\begin{equation}
+\label{ch1:eq:action-df-flattening-anisotropy}
+\begin{split}
+    h(\mathbf{J}) = & g_{r} J_{r} + g_{z} J_{z} + (3-g_{r}-g_{z}) J_{\phi} \\
+    g(\mathbf{J}) = & g_{r} J_{r} + g_{z} J_{z} + (3-g_{r}-g_{z}) J_{\phi}\,.
+\end{split}
+\end{equation}
+
+\noindent The parameters $[g_{r}, g_{z}, h_{r}, h_{z}]$ control the anisotropy and flattening for each regime. The final term of the DF sets the overall sense of rotationa about the z-axis by weighting positive or negative values of $J_{\phi}$ with a hyperbolic tangent function, with the degree and scale of the rotation set by $\chi$ and $J_{\phi,0}$ respectively. Additional terms may be constructed and added to this DF which serve to exponentially truncate the model for large actions or to add a core for small actions, see \textcite{binney14d} for more details.
+
+The usefulness of this DF is the fact that it is a direct function of three integrals of motion: the actions. This contrasts with the Eddington family of DFs, which are functions of one or two actions: energy and sometimes the angular momentum. Since axisymmetric potentials such as the Milky Way admit three integrals (energy, angular momentum, and the third integral), these action-based DFs can theoretically describe more realistic phase space distributions that the Eddington family cannot. Another benefit of action-based DFs is that they have a comparably simple form. But the downside is that, as previously discussed, actions are not typically easy to compute and often require approximations to be made, which contrasts with energy and angular momentum which are always well-defined.
+
+\subsubsection{Stellar abundances and galactic chemical evolution}
+
+\subsubsection{N-body techniques: the theoretical underpinnings of galaxy formation theory}
+
