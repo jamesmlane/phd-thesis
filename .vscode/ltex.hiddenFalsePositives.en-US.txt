@@ -1,0 +1,5 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QFinally, the modern tenets of galaxy formation theory are reviewed, from the collapse of overdensities in the early-Universe, to the assembly of structures resembling galaxies, and their resulting evolution over cosmic time.\\E$"}
+{"rule":"EN_SPECIFIC_CASE","sentence":"^\\QThis involves examining the \\E(?:Dummy|Ina|Jimmy-)[0-9]+\\QCDM paradigm, which is the current standard model of cosmology, including the Big Bang theory, and highlighting how many of its central features are integral to the study of galaxies.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qparadigm.\\E$"}
+{"rule":"SENTENCE_WHITESPACE","sentence":"^\\QLambdaCDM.\\E$"}
+{"rule":"SENTENCE_WHITESPACE","sentence":"^\\QLambdaCDM.: a tapestry for galaxy physics.\\E$"}
